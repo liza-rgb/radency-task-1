@@ -1,0 +1,189 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+table {
+    margin: 0 auto;
+    border-spacing: 0 10px; 
+    margin-top: -10px;
+}
+
+table th, table td {
+    padding: 10px;
+}
+
+table tr td {
+    color: #999999;
+}
+
+table tr td:nth-child(1),
+table tr th:nth-child(1) {
+    color: #000;
+    font-size: 20px;
+    width: 30px;
+}
+
+table tr td:nth-child(2),
+table tr th:nth-child(2) {
+    color: #000;
+    width: 120px;
+}
+
+table tr td:nth-child(5),
+table tr th:nth-child(5) {
+    width: 260px;
+}
+
+table tr td:nth-child(3), 
+table tr th:nth-child(3),
+table tr td:nth-child(4),
+table tr th:nth-child(4) {
+    width: 130px;
+}
+
+table tr td:nth-child(6),
+table tr th:nth-child(6) {
+    width: 70px;
+}
+
+table tr td:nth-child(7),
+table tr th:nth-child(7) {
+    width: 105px;
+}
+
+thead {
+    background-color: #999999;
+    color: #fff;
+    text-align: left;
+}
+
+thead td {
+    border-radius: 10px;
+}
+
+th:first-child {
+    border-top-left-radius: 10px; 
+    border-bottom-left-radius: 10px;
+}
+
+th:last-child {
+    border-bottom-right-radius: 10px; 
+    border-top-right-radius: 10px; 
+}
+
+tbody {
+    background-color: #E7EAF5;
+}
+
+section {
+    margin-bottom: 80px;
+}
+
+.d-none {
+    display: none;
+}
+
+.popup {
+    background-color: rgba(0, 0, 0, 0.267);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.popup .popup-add, .popup .popup-edit {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.popup .card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.popup .card-header { 
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    font-weight: 700;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #E7EAF5;
+}
+
+.popup .card div {
+    margin-top: 10px;
+}
+
+.popup .card p {
+    margin: 5px 0px;
+}
+
+.popup .card input[type=text],  
+.popup .card textarea {
+    width: 100%;
+    border: 1px solid #999999;
+    border-radius: 10px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.popup .card .card-header button {
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    text-align: right;
+}
+
+.popup .card .card-header button:hover {
+    color: #999999;
+    cursor: pointer;
+}
+
+.popup .card .card-body button {
+    font-size: 15px;
+    font-weight: 600;
+    padding: 5px 15px;
+    display: block;
+    margin: 20px auto 0px;
+    background-color: #E7EAF5;
+    border: none;
+    border-radius: 10px;
+}
+
+.popup .card .card-body button:hover {
+    color: #fff;
+    background-color: #999999;
+    cursor: pointer;
+}
+
+.control-panel button {
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    color: #999999;
+}
+
+.control-panel button:hover {
+    color: #000;
+    cursor: pointer;
+}
+
+#add-button {
+    text-align: center;
+    padding: 5px 25px;
+    display: block;
+    margin: 0 auto;
+    background-color: transparent;
+    color: #000;
+    border: 2px solid #000;
+}
+
+#add-button:hover {
+    color: #999999;
+    border: 2px solid #999999;
+    cursor: pointer;
+}
+

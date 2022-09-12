@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="src/css/styles.css">
+    
+    <title>Notes App</title>
+</head>
+<body>
+    <div class="popup d-none"></div>
+    <section>
+        <table id="notes-table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Created</th>
+                    <th>Category</th>
+                    <th>Content</th>
+                    <th>Dates</th>
+                    <th>
+                        <button id="show-archived-notes-button">
+                            <i class="fa-solid fa-box-archive"></i> Archive
+                        </button>
+                        <button id="show-active-notes-button" class="d-none">
+                            <i class="fa-regular fa-note-sticky"></i> Active
+                        </button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <button id="add-button">Add New Note</button>
+    </section>
+    <section>
+        <table id="summary-table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Note Category</th>
+                    <th>Active</th>
+                    <th>Archive</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </section>
+
+    <script src="https://kit.fontawesome.com/46fef9d527.js" crossorigin="anonymous"></script>
+    <script type="module" src="src/js/app.js"></script>
+</body>
+</html>
