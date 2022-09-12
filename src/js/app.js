@@ -8,75 +8,11 @@ const addNoteButton = document.querySelector("#add-button");
 const popupElement = document.querySelector(".popup");
 
 import { seeds } from "./seeds.js";
-// import { formatDate, getDatesList } from "./lib/dates.js";
-// import { categories, getCategoryIcon, countNotesByCategory, formatCategory } from "./lib/categories.js";
+import { formatDate, getDatesList } from "./lib/dates.js";
+import { categories, getCategoryIcon, countNotesByCategory, formatCategory } from "./lib/categories.js";
 
 let storedNotes = [];
 let idIterator = 1;
-
-function getDatesList(content) {
-    const dates = content.match(/(\d{1,4}([.\-/])\d{1,2}([.\-/])\d{1,4})/g);
-    if (dates) {
-        return dates.join(", ");
-    }
-    return "";
-}
-
-function formatDate(date) {
-    const day = date.getDate();
-    if (day < 10) {
-        day = `0${day}`;
-    }
-
-    const months = ["January", "February", "March", "April", "May", "June", "July", "August" ,"September", "October", "November", "December"];
-    const month = date.getMonth();
-
-    const year = date.getFullYear();
-
-    return `${months[month]} ${day}, ${year}`;
-}
-
-const categories = [
-    {
-        name: "Task",
-        icon: '<i class="fa-solid fa-list-check"></i>'
-    },
-    {
-        name: "Random Thought",
-        icon: '<i class="fa-solid fa-brain"></i>'
-    },
-    {
-        name: "Idea",
-        icon: '<i class="fa-regular fa-lightbulb"></i>'
-    }, 
-    {
-        name: "Quote",
-        icon: '<i class="fa-solid fa-quote-left"></i>'
-    }
-];
-
-function getCategoryIcon(category){
-    return categories.find((c) => c.name === category).icon;
-}
-
-function countNotesByCategory(category, storedNotes) {
-    let activeNotes = 0;
-    let archivedNotes = 0;
-    storedNotes.map((note) => {
-        if (note.category === category) {
-            if (note.isArchived) {
-                archivedNotes++;
-            } else {
-                activeNotes++;
-            }
-        }
-    })
-    return { activeNotes, archivedNotes }
-}
-
-function formatCategory(category) {
-    return category.toLowerCase().replace(" ", "-");
-}
 
 function showActiveNotes() {
     let activeNotesHTML = "";
