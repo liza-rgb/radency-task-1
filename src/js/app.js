@@ -13,44 +13,40 @@ import { categories, getCategoryIcon, countNotesByCategory, formatCategory } fro
 
 let storedNotes = [];
 let idIterator = 1;
+let isArchiveMode = 0;
 
-function showActiveNotes() {
-    let activeNotesHTML = "";
-    storedNotes.map((note) => {
-        if (!note.isArchived) {
-            activeNotesHTML += `
-            <tr>
-                <td>
-                    ${getCategoryIcon(note.category)}
-                </td>
-                <td>${note.name}</td>
-                <td>${formatDate(note.created)}</td>
-                <td>${note.category}</td>
-                <td>${note.content}</td>
-                <td>${getDatesList(note.content)}</td>
-                
-                <td class="control-panel">
-                    <button onclick=showEditForm(${note.id})>
-                        <i class="fa-solid fa-pencil"></i>
-                    </button>
-                    <button onclick=archiveNote(${note.id})>
-                        <i class="fa-solid fa-box-archive"></i>
-                    </button>
-                    <button onclick=deleteNote(${note.id})>
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
-                </td>
-            </tr> `;
-        }
-    });
-    notesTableElement.innerHTML = activeNotesHTML;
+function showControlPanel(note) {
+    if (!isArchiveMode) {
+        return `
+        <td class="control-panel">
+            <button onclick=showEditForm(${note.id})>
+                <i class="fa-solid fa-pencil"></i>
+            </button>
+            <button onclick=archiveNote(${note.id})>
+                <i class="fa-solid fa-box-archive"></i>                    </button>
+             <button onclick=deleteNote(${note.id})>
+                <i class="fa-solid fa-trash"></i>
+            </button>
+        </td> `;
+    }
+    if (isArchiveMode) {
+        return `
+        <td class="control-panel">
+            <button onclick=unarchiveNote(${note.id})>
+                <i class="fa-solid fa-box-open"></i>
+            </button>
+            <button onclick=deleteNote(${note.id})>
+                <i class="fa-solid fa-trash"></i>                    
+            </button>
+        </td>`;
+    }
 }
 
-function showArchivedNotes() {
-    let archiveNotesHTML = "";
+function showNotesTable() {
+    let notesTableHTML = "";
     storedNotes.map((note) => {
-        if (note.isArchived) {
-            archiveNotesHTML += `
+        if (note.isArchived === isArchiveMode) {
+            notesTableHTML += `
             <tr>
                 <td>
                     ${getCategoryIcon(note.category)}
@@ -60,19 +56,11 @@ function showArchivedNotes() {
                 <td>${note.category}</td>
                 <td>${note.content}</td>
                 <td>${getDatesList(note.content)}</td>
-                
-                <td class="control-panel">
-                    <button onclick=unarchiveNote(${note.id})>
-                        <i class="fa-solid fa-box-open"></i>
-                    </button>
-                    <button onclick=deleteNote(${note.id})>
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
-                </td>
+                ${showControlPanel(note)}
             </tr> `;
         }
     });
-    notesTableElement.innerHTML = archiveNotesHTML;
+    notesTableElement.innerHTML = notesTableHTML;
 }
 
 function showSummaryTable() {
@@ -104,14 +92,14 @@ function seedNotes(seeds) {
 
 window.deleteNote = function deleteNote(id) {
     storedNotes = storedNotes.filter(note => note.id !== id);
-    showActiveNotes();
+    showNotesTable();
     showSummaryTable();
 }
 
 window.archiveNote = function archiveNote(id) {
     try {
         storedNotes.find(note => note.id === id).isArchived = 1;
-        showActiveNotes();
+        showNotesTable();
         showSummaryTable();
     } catch (e) {
         console.log(`The note with ID ${id} can not be found.`);
@@ -122,7 +110,7 @@ window.archiveNote = function archiveNote(id) {
 window.unarchiveNote = function unarchiveNote(id) {
     try {
         storedNotes.find(note => note.id === id).isArchived = 0;
-        showArchivedNotes();
+        showNotesTable();
         showSummaryTable();
     } catch (e) {
         console.log(`The note with ID ${id} can not be found.`);
@@ -152,7 +140,7 @@ window.addNote = function addNote(event) {
         }
         storedNotes.push(newNote);
         dismissForm();
-        showActiveNotes();
+        showNotesTable();
         showSummaryTable();
     } else {
         alert("Please fill all of the fields!");
@@ -175,7 +163,7 @@ window.editNote = function editNote(event, id) {
                 content: formData.getAll("content")[0],
             }
             dismissForm();
-            showActiveNotes();
+            showNotesTable();
             showSummaryTable();
         } else {
             alert("Please fill all of the fields!");
@@ -192,14 +180,14 @@ window.dismissForm = function dismissForm() {
 }
 
 function showRadioButtonsCategory() {
-    let radioButtontsHTML = "";
+    let radioButtonsHTML = "";
     categories.map((category) => {
-        radioButtontsHTML += `
+        radioButtonsHTML += `
         <input type="radio" id="edit-note-category-${formatCategory(category.name)}"
         name="category" value="${category.name}">            
         <label for="edit-note-category-${formatCategory(category.name)}">${category.name}</label>`;
     });
-    return radioButtontsHTML;
+    return radioButtonsHTML;
 }
 
 window.showEditForm = function showEditForm(id) {
@@ -279,14 +267,16 @@ showArchivedNotesButton.addEventListener("click", (e) => {
     e.preventDefault();
     showArchivedNotesButton.classList.add("d-none");
     showActiveNotesButton.classList.remove("d-none");
-    showArchivedNotes();
+    isArchiveMode = 1;
+    showNotesTable();
 });
 
 showActiveNotesButton.addEventListener("click", (e) => {
     e.preventDefault();
     showActiveNotesButton.classList.add("d-none");
     showArchivedNotesButton.classList.remove("d-none");
-    showActiveNotes();
+    isArchiveMode = 0;
+    showNotesTable();
 });
 
 addNoteButton.addEventListener("click", (e) => {
@@ -295,6 +285,6 @@ addNoteButton.addEventListener("click", (e) => {
 });
 
 seedNotes(seeds);
-showActiveNotes();
+showNotesTable();
 showSummaryTable();
 
